@@ -5,48 +5,6 @@ import sys
 # START 
 print (' -> Starting...') 
 
-# Global variables
-terminal_parameters = sys.argv # terminal parameters string list
-terminal_parameters_lenght = len( terminal_parameters ) # amount of terminal parameters
-posible_parameters = {
-    "-d" : "       - Debuging activated!",
-    "-r" : "       - Reading files!",
-}
-debug_state = False # print debugs flag
-read_state = False # read files flag
-
-# Checking parameters
-def check_parameters( p_terminal_paratemers, p_size_terminal_parameters ):
-    
-    global debug_state # Write global debug_state
-    global read_state # Write global files_state
-
-    if( p_size_terminal_parameters > 1 and p_size_terminal_parameters < 4 ): 
-        print("       PARAMETERS DETECTED:")
-        
-        if parse_parameter( "-d", p_terminal_paratemers ):
-            debug_state = True
-        
-        if parse_parameter( "-r", p_terminal_paratemers ):
-            read_state = True
-    else:
-        sys.exit( "       - FAILED. Please check parameters!" )
-    
-    if( debug_state == False and read_state == False ):
-        sys.exit( "       - FAILED. Please check parameters!" )
-    
-    if( p_size_terminal_parameters == 2 ):
-        None
-
-def parse_parameter( p_parameter, p_compare_list ):
-    global posible_parameters   # Reads posible parameter dictionary
-
-    if p_parameter in p_compare_list:
-        print( posible_parameters[p_parameter] )
-        return True
-    else:
-        return False
-
 # Read files and extract information
 # Class BenchmarkParameters that store the information from
 # the result of the simulated benchmarks
@@ -109,20 +67,9 @@ class BenchmarkResults:
         print ("   - sim_CPI : " + self.sim_CPI)
         print ("   - sim_elapsed_time (seconds) : " + self.sim_elapsed_time)
 
-# Developer tools
-def print_debug( msg ):
-    global debug_state # Reads global debug_state
-    if debug_state: print( msg )
-
-benchmarks_list = []
-results_list = []
-
 # Read file
 def read_information_from_file( path ):
-    
-    global benchmarks_list
-    global results_list
-    
+
     file_object = open( path, "r" )
     params_list = file_object.readline().split(",")
     
@@ -156,16 +103,32 @@ def read_information_from_file( path ):
 
     file_object.close()
 
-    benchmarks_list += [aux_benchmark]
-    results_list += [aux_result]
+    return aux_benchmark, aux_result
+
+# Reading files to extract information
+def get_information( path, amount ):
+    result_matrix = [[],[]]
+    initial_path = path
+    for i in range( 1, amount+1 ):
+        res_tuple = read_information_from_file( initial_path + str(i) + ".txt" )
+        result_matrix[0] += [res_tuple[0]]
+        result_matrix[1] += [res_tuple[1]]
+
+    return result_matrix
+
 
 # Call functions
-check_parameters( terminal_parameters, terminal_parameters_lenght )
-
-# If i need to read all the different files, i need a list
-# for bpred-2lev- this are the params
-#first_test_params_0 = ['128','256','']
-
-read_information_from_file( "results/bpred-2lev-128-1-4.txt" )
+b2lev_matrix = get_information("results/b2lev_", 24)
+b2lev_types_matrix = get_information("results/b2lev_types_", 3)
+bimod_matrix = get_information("results/bimod_", 24)
+bimod_types_matrix = get_information("results/bimod_types_", 3)
+comb_matrix = get_information("results/comb_", 24)
+comb_types_matrix = get_information("results/comb_types_", 3)
+nottaken_matrix = get_information("results/nottaken_", 24)
+nottaken_types_matrix = get_information("results/nottaken_types_", 3)
+taken_matrix = get_information("results/taken_", 24)
+taken_types_matrix = get_information("results/taken_types_", 3)
+perfect_matrix = get_information("results/perfect_", 24)
+perfect_types_matrix = get_information("results/perfect_types_", 3)
 
 print (' -> END.')
