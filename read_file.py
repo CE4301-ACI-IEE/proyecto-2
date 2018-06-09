@@ -1,6 +1,7 @@
 
 # import libraries
 import sys
+import matplotlib.pyplot as plt
 
 # START 
 print (' -> Starting...') 
@@ -60,7 +61,7 @@ class BenchmarkResults:
         print " * OBJECT BenchmarkResults atributes * "
         print ("   - il1_misses : " + self.il1_misses)
         print ("   - il2_misses : " + self.il2_misses)
-        print ("   - dl1_misses : " + self.il1_misses)
+        print ("   - dl1_misses : " + self.dl1_misses)
         print ("   - dl2_misses : " + self.dl2_misses)
         print ("   - sim_cycles : " + self.sim_cycles)
         print ("   - sim_IPC : " + self.sim_IPC)
@@ -136,6 +137,99 @@ perfect_types_matrix = get_information("results/perfect_types_", 3)
 # bimod cache size cache misses l1
 # 2lev cache size cache misses l1
 # perfect cache size cache misses l1 """
+
+def get_misses_l1( pred_mode, assoc ):
+    aux_list = []
+    for i in range(0,len(pred_mode[0])):
+        if pred_mode[0][i].assoc == assoc:
+            aux_list += [int(pred_mode[1][i].il1_misses)]
+    
+    return aux_list
+
+print get_misses_l1(bimod_matrix, '1')
+
+#####################################################################################
+# BIMODAL PREDICTION
+#####################################################################################
+# plot assoc 1 
+caches_sizes = [128,256,512,1024,2048,4096]
+plt.plot( caches_sizes, get_misses_l1(bimod_matrix, '1'), label='Asociatividad 1' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL1")
+
+# plot assoc 2
+plt.plot( caches_sizes, get_misses_l1(bimod_matrix, '2'), label='Asociatividad 2' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL1")
+
+# plot assoc 4
+plt.plot( caches_sizes, get_misses_l1(bimod_matrix, '4'), label='Asociatividad 4' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL1")
+
+# plot assoc 8
+plt.plot( caches_sizes, get_misses_l1(bimod_matrix, '8'), label='Asociatividad 8' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL1")
+plt.legend(loc='best')
+plt.suptitle("Cache size vs Cache Misses para iL1 (Predictor bimodal)")
+plt.show()
+
+######################################################################################
+# TWO LEVEL PREDICTOR
+#####################################################################################
+# plot assoc 1 
+caches_sizes = [128,256,512,1024,2048,4096]
+plt.plot( caches_sizes, get_misses_l1(b2lev_matrix, '1'), label='Asociatividad 1' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL1")
+
+# plot assoc 2
+plt.plot( caches_sizes, get_misses_l1(b2lev_matrix, '2'), label='Asociatividad 2' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL1")
+
+# plot assoc 4
+plt.plot( caches_sizes, get_misses_l1(b2lev_matrix, '4'), label='Asociatividad 4' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL1")
+
+# plot assoc 8
+plt.plot( caches_sizes, get_misses_l1(b2lev_matrix, '8'), label='Asociatividad 8' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL1")
+plt.legend(loc='best')
+plt.suptitle("Cache size vs Cache Misses para iL1 (Predictor de 2 niveles)")
+plt.show()
+
+######################################################################################
+# PERFECT PREDICTION
+######################################################################################
+# plot assoc 1 
+caches_sizes = [128,256,512,1024,2048,4096]
+plt.plot( caches_sizes, get_misses_l1(perfect_matrix, '1'), label='Asociatividad 1' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL1")
+
+# plot assoc 2
+plt.plot( caches_sizes, get_misses_l1(perfect_matrix, '2'), label='Asociatividad 2' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL1")
+
+# plot assoc 4
+plt.plot( caches_sizes, get_misses_l1(perfect_matrix, '4'), label='Asociatividad 4' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL1")
+
+# plot assoc 8
+plt.plot( caches_sizes, get_misses_l1(perfect_matrix, '8'), label='Asociatividad 8' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL1")
+plt.legend(loc='best')
+plt.suptitle("Cache size vs Cache Misses para iL1 (Predictor perfecto)")
+plt.show()
+
+##########################################################################################
 
 """
 # Asociatividad multiple LRU
