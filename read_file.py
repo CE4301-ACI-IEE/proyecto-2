@@ -149,7 +149,7 @@ def get_misses_l1( pred_mode, assoc ):
 print get_misses_l1(bimod_matrix, '1')
 
 #####################################################################################
-# BIMODAL PREDICTION
+# BIMODAL PREDICTION il1
 #####################################################################################
 # plot assoc 1 
 caches_sizes = [128,256,512,1024,2048,4096]
@@ -176,7 +176,7 @@ plt.suptitle("Cache size vs Cache Misses para iL1 (Predictor bimodal)")
 plt.show()
 
 ######################################################################################
-# TWO LEVEL PREDICTOR
+# TWO LEVEL PREDICTOR il1
 #####################################################################################
 # plot assoc 1 
 caches_sizes = [128,256,512,1024,2048,4096]
@@ -203,7 +203,7 @@ plt.suptitle("Cache size vs Cache Misses para iL1 (Predictor de 2 niveles)")
 plt.show()
 
 ######################################################################################
-# PERFECT PREDICTION
+# PERFECT PREDICTION il1
 ######################################################################################
 # plot assoc 1 
 caches_sizes = [128,256,512,1024,2048,4096]
@@ -230,6 +230,98 @@ plt.suptitle("Cache size vs Cache Misses para iL1 (Predictor perfecto)")
 plt.show()
 
 ##########################################################################################
+
+def get_misses_l2( pred_mode, assoc ):
+    aux_list = []
+    for i in range(0,len(pred_mode[0])):
+        if pred_mode[0][i].assoc == assoc:
+            aux_list += [int(pred_mode[1][i].il2_misses)]
+    
+    return aux_list
+
+#####################################################################################
+# BIMODAL PREDICTION il2
+#####################################################################################
+# plot assoc 1 
+caches_sizes = [128,256,512,1024,2048,4096]
+plt.plot( caches_sizes, get_misses_l2(bimod_matrix, '1'), label='Asociatividad 1' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL2")
+
+# plot assoc 2
+plt.plot( caches_sizes, get_misses_l2(bimod_matrix, '2'), label='Asociatividad 2' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL2")
+
+# plot assoc 4
+plt.plot( caches_sizes, get_misses_l2(bimod_matrix, '4'), label='Asociatividad 4' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL2")
+
+# plot assoc 8
+plt.plot( caches_sizes, get_misses_l2(bimod_matrix, '8'), label='Asociatividad 8' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL2")
+plt.legend(loc='best')
+plt.suptitle("Cache size vs Cache Misses para iL2 (Predictor bimodal)")
+plt.show()
+
+######################################################################################
+# TWO LEVEL PREDICTOR il2
+#####################################################################################
+# plot assoc 1 
+caches_sizes = [128,256,512,1024,2048,4096]
+plt.plot( caches_sizes, get_misses_l2(b2lev_matrix, '1'), label='Asociatividad 1' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL2")
+
+# plot assoc 2
+plt.plot( caches_sizes, get_misses_l2(b2lev_matrix, '2'), label='Asociatividad 2' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL2")
+
+# plot assoc 4
+plt.plot( caches_sizes, get_misses_l2(b2lev_matrix, '4'), label='Asociatividad 4' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL2")
+
+# plot assoc 8
+plt.plot( caches_sizes, get_misses_l2(b2lev_matrix, '8'), label='Asociatividad 8' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL2")
+plt.legend(loc='best')
+plt.suptitle("Cache size vs Cache Misses para iL2 (Predictor de 2 niveles)")
+plt.show()
+
+######################################################################################
+# PERFECT PREDICTION il2
+######################################################################################
+# plot assoc 1 
+caches_sizes = [128,256,512,1024,2048,4096]
+plt.plot( caches_sizes, get_misses_l2(perfect_matrix, '1'), label='Asociatividad 1' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL2")
+
+# plot assoc 2
+plt.plot( caches_sizes, get_misses_l2(perfect_matrix, '2'), label='Asociatividad 2' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL2")
+
+# plot assoc 4
+plt.plot( caches_sizes, get_misses_l2(perfect_matrix, '4'), label='Asociatividad 4' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL2")
+
+# plot assoc 8
+plt.plot( caches_sizes, get_misses_l2(perfect_matrix, '8'), label='Asociatividad 8' )
+plt.xlabel("Cache size")
+plt.ylabel("Cache misses iL2")
+plt.legend(loc='best')
+plt.suptitle("Cache size vs Cache Misses para iL2 (Predictor perfecto)")
+plt.show()
+
+##########################################################################################
+
 
 """
 # Asociatividad multiple LRU
