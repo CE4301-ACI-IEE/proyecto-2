@@ -689,5 +689,5 @@ plt.savefig( "pictures/cache_size_vs_CPI_perfect" )
 plt.show()
 #############################################
 
-print " -> Todas las figuras fueron guardadas en el directorio results/"
+print " -> Todas las figuras fueron guardadas en el directorio pictures/"
 print (' -> FIN.')
