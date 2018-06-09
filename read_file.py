@@ -528,30 +528,153 @@ plt.savefig( "pictures/cache_size_vs_cache_misses_dl2_perfect" )
 plt.show()
 ##########################################################################################
 
+def get_ipc( pred_mode, assoc ):
+    aux_list = []
+    for i in range(0,len(pred_mode[0])):
+        if pred_mode[0][i].assoc == assoc:
+            aux_list += [float(pred_mode[1][i].sim_IPC)]
+    return aux_list
 
-"""
-# Asociatividad multiple LRU
-# bimod cache size cache misses l2
-# 2lev cache size cache misses l2
-# perfect cache size cache misses l2 """
+#####################################################################################
+# BIMODAL PREDICTION IPC
+#####################################################################################
+# plot assoc 1 
+caches_sizes = [128,256,512,1024,2048,4096]
+plt.plot( caches_sizes, get_ipc(bimod_matrix, '1'), label='Asociatividad 1' )
 
-"""
-# Asociatividad multiple LRU
-# bimod cache size cache misses d2
-# 2lev cache size cache misses d2
-# perfect cache size cache misses d2 """
+# plot assoc 2
+plt.plot( caches_sizes, get_ipc(bimod_matrix, '2'), label='Asociatividad 2' )
 
-"""
-# Asociatividad multiple LRU
-# bimod cache size cache misses d1
-# 2lev cache size cache misses d1
-# perfect cache size cache misses d1 """
+# plot assoc 4
+plt.plot( caches_sizes, get_ipc(bimod_matrix, '4'), label='Asociatividad 4' )
 
-""" 
-# Asociatividad multiple LRU
-# bimod cache size CPI
-# 2lev cache size CPI
-# perfect cache size CPI """
+# plot assoc 8
+plt.plot( caches_sizes, get_ipc(bimod_matrix, '8'), label='Asociatividad 8' )
+plt.xlabel("Cache size")
+plt.ylabel("IPC")
+plt.legend(loc='best')
+plt.suptitle("Cache size vs IPC (Predictor bimodal)")
+plt.savefig( "pictures/cache_size_vs_IPC_bimodal" )
+plt.show()
+
+######################################################################################
+# TWO LEVEL PREDICTOR IPC
+#####################################################################################
+# plot assoc 1 
+caches_sizes = [128,256,512,1024,2048,4096]
+plt.plot( caches_sizes, get_ipc(b2lev_matrix, '1'), label='Asociatividad 1' )
+
+# plot assoc 2
+plt.plot( caches_sizes, get_ipc(b2lev_matrix, '2'), label='Asociatividad 2' )
+
+# plot assoc 4
+plt.plot( caches_sizes, get_ipc(b2lev_matrix, '4'), label='Asociatividad 4' )
+
+# plot assoc 8
+plt.plot( caches_sizes, get_ipc(b2lev_matrix, '8'), label='Asociatividad 8' )
+plt.xlabel("Cache size")
+plt.ylabel("IPC")
+plt.legend(loc='best')
+plt.suptitle("Cache size vs IPC (Predictor de 2 niveles)")
+plt.savefig( "pictures/cache_size_vs_IPC_2lev" )
+plt.show()
+
+######################################################################################
+# PERFECT PREDICTION IPC
+######################################################################################
+# plot assoc 1 
+caches_sizes = [128,256,512,1024,2048,4096]
+plt.plot( caches_sizes, get_ipc(perfect_matrix, '1'), label='Asociatividad 1' )
+
+# plot assoc 2
+plt.plot( caches_sizes, get_ipc(perfect_matrix, '2'), label='Asociatividad 2' )
+
+# plot assoc 4
+plt.plot( caches_sizes, get_ipc(perfect_matrix, '4'), label='Asociatividad 4' )
+
+# plot assoc 8
+plt.plot( caches_sizes, get_ipc(perfect_matrix, '8'), label='Asociatividad 8' )
+plt.xlabel("Cache size")
+plt.ylabel("IPC")
+plt.legend(loc='best')
+plt.suptitle("Cache size vs IPC (Predictor perfecto)")
+plt.savefig( "pictures/cache_size_vs_IPC_perfect" )
+plt.show()
+##########################################################################################
+
+def get_cpi( pred_mode, assoc ):
+    aux_list = []
+    for i in range(0,len(pred_mode[0])):
+        if pred_mode[0][i].assoc == assoc:
+            aux_list += [float(pred_mode[1][i].sim_CPI)]
+    return aux_list
+
+#####################################################################################
+# BIMODAL PREDICTION CPI
+#####################################################################################
+# plot assoc 1 
+caches_sizes = [128,256,512,1024,2048,4096]
+plt.plot( caches_sizes, get_cpi(bimod_matrix, '1'), label='Asociatividad 1' )
+
+# plot assoc 2
+plt.plot( caches_sizes, get_cpi(bimod_matrix, '2'), label='Asociatividad 2' )
+
+# plot assoc 4
+plt.plot( caches_sizes, get_cpi(bimod_matrix, '4'), label='Asociatividad 4' )
+
+# plot assoc 8
+plt.plot( caches_sizes, get_cpi(bimod_matrix, '8'), label='Asociatividad 8' )
+plt.xlabel("Cache size")
+plt.ylabel("IPC")
+plt.legend(loc='best')
+plt.suptitle("Cache size vs CPI (Predictor bimodal)")
+plt.savefig( "pictures/cache_size_vs_CPI_bimodal" )
+plt.show()
+
+######################################################################################
+# TWO LEVEL PREDICTOR CPI
+#####################################################################################
+# plot assoc 1 
+caches_sizes = [128,256,512,1024,2048,4096]
+plt.plot( caches_sizes, get_cpi(b2lev_matrix, '1'), label='Asociatividad 1' )
+
+# plot assoc 2
+plt.plot( caches_sizes, get_cpi(b2lev_matrix, '2'), label='Asociatividad 2' )
+
+# plot assoc 4
+plt.plot( caches_sizes, get_cpi(b2lev_matrix, '4'), label='Asociatividad 4' )
+
+# plot assoc 8
+plt.plot( caches_sizes, get_cpi(b2lev_matrix, '8'), label='Asociatividad 8' )
+plt.xlabel("Cache size")
+plt.ylabel("IPC")
+plt.legend(loc='best')
+plt.suptitle("Cache size vs CPI (Predictor de 2 niveles)")
+plt.savefig( "pictures/cache_size_vs_CPI_2lev" )
+plt.show()
+
+######################################################################################
+# PERFECT PREDICTION CPI
+######################################################################################
+# plot assoc 1 
+caches_sizes = [128,256,512,1024,2048,4096]
+plt.plot( caches_sizes, get_cpi(perfect_matrix, '1'), label='Asociatividad 1' )
+
+# plot assoc 2
+plt.plot( caches_sizes, get_cpi(perfect_matrix, '2'), label='Asociatividad 2' )
+
+# plot assoc 4
+plt.plot( caches_sizes, get_cpi(perfect_matrix, '4'), label='Asociatividad 4' )
+
+# plot assoc 8
+plt.plot( caches_sizes, get_cpi(perfect_matrix, '8'), label='Asociatividad 8' )
+plt.xlabel("Cache size")
+plt.ylabel("CPI")
+plt.legend(loc='best')
+plt.suptitle("Cache size vs CPI (Predictor perfecto)")
+plt.savefig( "pictures/cache_size_vs_CPI_perfect" )
+plt.show()
+#############################################
 
 
 print (' -> END.')
