@@ -1,10 +1,24 @@
 
+# Ingenieria en Computadores - Fecha: 8/6/18
+# Integrantes:
+#   Isaac Nunez Araya
+#   Ernesto Ulate Ramirez
+
+# Script de python para leer los resultados generados por SimpleScalar
+
+
 # import libraries
 import sys
 import matplotlib.pyplot as plt
 
-# START 
-print (' -> Starting...') 
+# START
+print "" 
+print "Segundo proyecto de Arquitectura en Computadores I."
+print "  Por: "
+print "    Isaac Nunez y Ernesto Ulate."
+print "Fecha: 08/06/18."
+print ""
+print (' -> Iniciando...')
 
 # Read files and extract information
 # Class BenchmarkParameters that store the information from
@@ -133,6 +147,7 @@ def get_information( path, amount ):
 read_information_from_file( "results/perfect_4.txt" )
 
 
+print " -> Recolectando datos generados por SimpleScalar..."
 # Call functions
 b2lev_matrix = get_information("results/b2lev_", 24)
 b2lev_types_matrix = get_information("results/b2lev_types_", 3)
@@ -147,11 +162,9 @@ taken_types_matrix = get_information("results/taken_types_", 3)
 perfect_matrix = get_information("results/perfect_", 24)
 perfect_types_matrix = get_information("results/perfect_types_", 3)
 
-"""
-# Asociatividad multiple LRU
-# bimod cache size cache misses l1
-# 2lev cache size cache misses l1
-# perfect cache size cache misses l1 """
+print " -> Datos recolectados."
+
+print " -> Generando graficos..."
 
 def get_misses_l1( pred_mode, assoc ):
     aux_list = []
@@ -676,5 +689,5 @@ plt.savefig( "pictures/cache_size_vs_CPI_perfect" )
 plt.show()
 #############################################
 
-
-print (' -> END.')
+print " -> Todas las figuras fueron guardadas en el directorio results/"
+print (' -> FIN.')
