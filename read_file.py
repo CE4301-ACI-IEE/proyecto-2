@@ -49,8 +49,8 @@ class BenchmarkResults:
     sim_IPC, sim_CPI, sim_elapsed_time ):
         self.il1_misses = il1_misses
         self.il2_misses = il2_misses
-        self.dl1_misses = il1_misses
-        self.dl2_misses = il2_misses
+        self.dl1_misses = dl1_misses
+        self.dl2_misses = dl2_misses
         self.sim_cycles = sim_cycles
         self.sim_IPC = sim_IPC
         self.sim_CPI = sim_CPI
@@ -130,5 +130,37 @@ taken_matrix = get_information("results/taken_", 24)
 taken_types_matrix = get_information("results/taken_types_", 3)
 perfect_matrix = get_information("results/perfect_", 24)
 perfect_types_matrix = get_information("results/perfect_types_", 3)
+
+"""
+# Asociatividad multiple LRU
+# bimod cache size cache misses l1
+# 2lev cache size cache misses l1
+# perfect cache size cache misses l1 """
+
+"""
+# Asociatividad multiple LRU
+# bimod cache size cache misses l2
+# 2lev cache size cache misses l2
+# perfect cache size cache misses l2 """
+
+"""
+# Asociatividad multiple LRU
+# bimod cache size cache misses d2
+# 2lev cache size cache misses d2
+# perfect cache size cache misses d2 """
+
+"""
+# Asociatividad multiple LRU
+# bimod cache size cache misses d1
+# 2lev cache size cache misses d1
+# perfect cache size cache misses d1 """
+
+""" 
+# Asociatividad multiple LRU
+# bimod cache size CPI
+# 2lev cache size CPI
+# perfect cache size CPI """
+
+
 
 print (' -> END.')
